@@ -34,3 +34,17 @@ db.movies.find(
 db.movies.find({ category: { $size: 2 } }, { _id: 0, title: 1 });
 db.movies.find({ ratings: { $size: 4 } }, { _id: 0, title: 1 });
 db.movies.find({ budget: { $mod: [5, 0] }, category: { $size: 2 } });
+db.movies.find(
+  {
+    $or: [
+      { category: { $elemMatch: { $all: ['sci-fi'] } } },
+      { ratings: { $elemMatch: { $gt: 199 } } },
+    ],
+  },
+  {
+    _id: 0,
+    title: 1,
+    ratings: 1,
+    category: 1,
+  }
+);
