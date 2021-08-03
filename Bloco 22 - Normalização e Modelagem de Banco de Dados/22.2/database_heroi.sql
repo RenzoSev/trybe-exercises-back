@@ -1,0 +1,17 @@
+DROP DATABASE IF EXISTS filmes;
+CREATE DATABASE IF NOT EXISTS filmes;
+USE filmes;
+
+CREATE TABLE IF NOT EXISTS genero(
+	genero_id INT NOT NULL AUTO_INCREMENT,
+  	genero VARCHAR(30),
+  	CONSTRAINT PRIMARY KEY (genero_id)
+);
+
+CREATE TABLE IF NOT EXISTS filme(
+	filme_id INT NOT NULL AUTO_INCREMENT,
+  	genero_id INT NOT NULL,
+  	valor_entrada INT,
+  	CONSTRAINT PRIMARY KEY (filme_id),
+  	CONSTRAINT FOREIGN KEY (genero_id) REFERENCES genero(genero_id)
+);

@@ -1,0 +1,80 @@
+SELECT MAX(SALARY) FROM hr.employees;
+
+SELECT MAX(SALARY) - MIN(SALARY) 
+FROM hr.employees;
+
+SELECT JOB_ID, AVG(SALARY) AS media_salario_job_id
+FROM hr.employees 
+GROUP BY JOB_ID
+ORDER BY media_salario_job_id DESC; 
+
+SELECT SUM(SALARY) FROM hr.employees;
+
+SELECT 
+ROUND(MAX(SALARY), 2), 
+ROUND(MIN(SALARY), 2), 
+ROUND(SUM(SALARY), 2),
+ROUND(AVG(SALARY), 2) 
+FROM hr.employees;
+
+SELECT JOB_ID, COUNT(*) AS total 
+FROM hr.employees 
+WHERE JOB_ID = 'IT_PROG';
+
+SELECT JOB_ID, SUM(SALARY) AS total_each_job_salary
+FROM hr.employees
+GROUP BY JOB_ID;
+
+SELECT JOB_ID, SUM(SALARY) AS total_each_job_salary
+FROM hr.employees
+GROUP BY JOB_ID
+HAVING JOB_ID = 'IT_PROG';
+
+SELECT JOB_ID, AVG(SALARY) AS media_salarial_job_id 
+FROM hr.employees 
+GROUP BY JOB_ID
+HAVING JOB_ID <> 'IT_PROG'
+ORDER BY media_salarial_job_id;
+
+SELECT 
+DEPARTMENT_ID, 
+AVG(SALARY) AS media_salarial, 
+COUNT(*) as quantidade_de_funcionarios 
+FROM hr.employees 
+GROUP BY DEPARTMENT_ID
+HAVING quantidade_de_funcionarios > 10;
+
+SET SQL_SAFE_UPDATES = 0;
+
+UPDATE hr.employees
+SET PHONE_NUMBER = REPLACE(PHONE_NUMBER, '515%', '777')
+WHERE PHONE_NUMBER LIKE ('515%');
+
+SELECT FIRST_NAME FROM hr.employees 
+WHERE LENGTH(FIRST_NAME) >= 8;
+
+SELECT 
+EMPLOYEE_ID, 
+FIRST_NAME, 
+YEAR(HIRE_DATE) 
+FROM hr.employees;
+
+SELECT 
+EMPLOYEE_ID, 
+FIRST_NAME, 
+MONTH(HIRE_DATE) 
+FROM hr.employees;
+
+SELECT UCASE(CONCAT(FIRST_NAME, ' ', LAST_NAME)) FROM hr.employees;
+
+SELECT LAST_NAME, HIRE_DATE 
+FROM hr.employees 
+WHERE YEAR(HIRE_DATE) = 1987 
+AND MONTH(HIRE_DATE) = 7;
+
+SELECT 
+FIRST_NAME, 
+LAST_NAME,
+DATEDIFF(NOW(), HIRE_DATE) 
+FROM hr.employees;
+
