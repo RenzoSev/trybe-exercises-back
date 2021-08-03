@@ -80,3 +80,4 @@ db.movies.updateOne(
     },
   }
 );
+db.movies.find({ description: { $regex: /^The/ } });
