@@ -23,3 +23,7 @@ db.movies.find(
   { ratings: { $elemMatch: { $gte: 100, $lte: 105 } } },
   { title: 1, rating: 1, _id: 0 }
 );
+db.movies.find(
+  { ratings: { $elemMatch: { $gte: 64, $lte: 105, $mod: [9, 0] } } },
+  { title: 1, rating: 1, _id: 0 }
+);
