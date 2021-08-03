@@ -31,8 +31,6 @@ db.movies.find(
   { ratings: { $elemMatch: { $gte: 103 } }, category: { $all: ['adventure'] } },
   { title: 1, rating: 1, _id: 0 }
 );
-db.movies.find(
-  { category: { $size: 2 } },
-  { _id: 0, title: 1 }
-);
+db.movies.find({ category: { $size: 2 } }, { _id: 0, title: 1 });
 db.movies.find({ ratings: { $size: 4 } }, { _id: 0, title: 1 });
+db.movies.find({ budget: { $mod: [5, 0] }, category: { $size: 2 } });
