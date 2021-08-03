@@ -31,3 +31,7 @@ db.movies.find(
   { ratings: { $elemMatch: { $gte: 103 } }, category: { $all: ['adventure'] } },
   { title: 1, rating: 1, _id: 0 }
 );
+db.movies.find(
+  { category: { $size: 2 } },
+  { _id: 0, title: 1 }
+);
