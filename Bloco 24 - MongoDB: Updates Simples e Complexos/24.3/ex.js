@@ -84,3 +84,4 @@ db.movies.find({ description: { $regex: /^The/ } });
 db.movies.find({ description: { $regex: /humanity.$/ } });
 db.movies.createIndex({ description: 'text' });
 db.movies.find({ $text: { $search: 'vacation' } });
+db.movies.find({ $text: { $search: 'monstrous criminal' } });
