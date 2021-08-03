@@ -15,3 +15,11 @@ db.movies.updateOne(
   { title: 'Home Alone' },
   { $set: { ratings: [200, 99, 65] } }
 );
+db.movies.find(
+  { ratings: { $elemMatch: { $gt: 103} } },
+  { title: 1, rating: 1, _id: 0 }
+);
+db.movies.find(
+  { ratings: { $elemMatch: { $gte: 100, $lte: 105 } } },
+  { title: 1, rating: 1, _id: 0 }
+);
