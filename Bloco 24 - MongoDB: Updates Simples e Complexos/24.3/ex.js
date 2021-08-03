@@ -16,7 +16,7 @@ db.movies.updateOne(
   { $set: { ratings: [200, 99, 65] } }
 );
 db.movies.find(
-  { ratings: { $elemMatch: { $gt: 103} } },
+  { ratings: { $elemMatch: { $gt: 103 } } },
   { title: 1, rating: 1, _id: 0 }
 );
 db.movies.find(
@@ -25,5 +25,9 @@ db.movies.find(
 );
 db.movies.find(
   { ratings: { $elemMatch: { $gte: 64, $lte: 105, $mod: [9, 0] } } },
+  { title: 1, rating: 1, _id: 0 }
+);
+db.movies.find(
+  { ratings: { $elemMatch: { $gte: 103 } }, category: { $all: ['adventure'] } },
   { title: 1, rating: 1, _id: 0 }
 );
