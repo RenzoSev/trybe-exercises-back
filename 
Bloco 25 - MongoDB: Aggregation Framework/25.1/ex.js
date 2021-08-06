@@ -24,7 +24,8 @@ db.clientes.aggregate([
     $limit: 5,
   },
 ]);
-db.clientes.aggregate(
+db.clientes.aggregate([
   { $group: { _id: '$endereco.uf', total: { $sum: 1 } } },
-  { $match: { _id: 'SC' } }
-);
+  { $match: { _id: 'SC' } },
+]);
+db.clientes.aggregate([{ $group: { _id: '$sexo', total: { $sum: 1 } } }]);
