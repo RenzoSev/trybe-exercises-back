@@ -113,6 +113,7 @@ db.vendas.aggregate([
   },
   { $project: { _id: 0 } },
 ]);
+// CONTINUACAO EX
 db.vendas.aggregate([
   {
     $match: {
