@@ -29,3 +29,8 @@ db.clientes.aggregate([
   { $match: { _id: 'SC' } },
 ]);
 db.clientes.aggregate([{ $group: { _id: '$sexo', total: { $sum: 1 } } }]);
+db.clientes.aggregate([
+  {
+    $group: { _id: { sexo: '$sexo', uf: '$endereco.uf' }, total: { $sum: 1 } },
+  },
+]);
