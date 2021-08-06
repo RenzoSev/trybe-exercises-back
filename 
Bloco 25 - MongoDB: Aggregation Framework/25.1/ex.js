@@ -21,6 +21,10 @@ db.clientes.aggregate([
     },
   },
   {
-    $limit: 4,
+    $limit: 5,
   },
 ]);
+db.clientes.aggregate(
+  { $group: { _id: '$endereco.uf', total: { $sum: 1 } } },
+  { $match: { _id: 'SC' } }
+);
