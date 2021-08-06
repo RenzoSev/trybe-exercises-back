@@ -1,0 +1,3 @@
+mongoimport --db erp /home/renzo/Desktop/clientes.json
+mongoimport --db erp /home/renzo/Desktop/produtos.json
+mongoimport --db erp /home/renzo/Desktop/vendas.json
