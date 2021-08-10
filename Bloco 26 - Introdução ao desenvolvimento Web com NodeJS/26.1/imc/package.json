@@ -5,7 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npx ts-node index.ts"
+    "start": "npx ts-node index.ts",
+    "imc": "npx ts-node imc.ts",
+    "speed": "npx ts-node speed.ts"
   },
   "author": "Renzo Sevilha",
   "license": "ISC",

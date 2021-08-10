@@ -26,3 +26,17 @@ export const getSituation = (imc: number) => {
 
 export const resultIMC = (imc: number, situation: string) =>
   `Seu IMC é de ${imc}. Sua situação é: ${situation}`;
+
+export const runIMC = () => {
+  const w = weight();
+  const h = height();
+
+  const imc = calculateIMC(w, h);
+  const situation = getSituation(imc);
+
+  const result = resultIMC(imc, situation);
+
+  console.log(result);
+};
+
+runIMC();
