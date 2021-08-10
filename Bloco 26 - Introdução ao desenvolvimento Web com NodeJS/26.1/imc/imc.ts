@@ -1,12 +1,12 @@
 const readline = require('readline-sync');
 
-export const weight = () => readline.questionFloat('Qual o seu peso?');
+const weight = () => readline.questionFloat('Qual o seu peso?');
 
-export const height = () => readline.questionFloat('Qual a sua altura?');
+const height = () => readline.questionFloat('Qual a sua altura?');
 
-export const calculateIMC = (w: number, h: number) => w / h ** 2;
+const calculateIMC = (w: number, h: number) => w / h ** 2;
 
-export const getSituation = (imc: number) => {
+const getSituation = (imc: number) => {
   if (imc >= 30) {
     const template = 'Obesidade grau';
 
@@ -24,7 +24,7 @@ export const getSituation = (imc: number) => {
   return 'Abaixo do peso';
 };
 
-export const resultIMC = (imc: number, situation: string) =>
+const resultIMC = (imc: number, situation: string) =>
   `Seu IMC é de ${imc}. Sua situação é: ${situation}`;
 
 export const runIMC = () => {

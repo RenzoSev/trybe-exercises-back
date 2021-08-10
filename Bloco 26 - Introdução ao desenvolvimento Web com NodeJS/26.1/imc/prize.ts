@@ -1,10 +1,10 @@
 const readline = require('readline-sync');
 
-export const getRandomNumber = () => Math.round(Math.random() * 10);
+const getRandomNumber = () => Math.round(Math.random() * 10);
 
-export const questionNumberChoice = () => readline.questionInt('Digite um número');
+const questionNumberChoice = () => readline.questionInt('Digite um número');
 
-export const getThePrize = (choice: number) => {
+const getThePrize = (choice: number) => {
   const randomNumber = getRandomNumber();
 
   const isRightChoice = randomNumber === choice;
@@ -25,6 +25,6 @@ export const runPrize = () => {
   const prizeResult = getThePrize(choice);
 
   console.log(prizeResult);
-}
+};
 
 runPrize();
