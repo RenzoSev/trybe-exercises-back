@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "npx ts-node index.ts",
     "imc": "npx ts-node imc.ts",
-    "speed": "npx ts-node speed.ts"
+    "speed": "npx ts-node speed.ts",
+    "prize": "npx ts-node prize.ts"
   },
   "author": "Renzo Sevilha",
   "license": "ISC",
