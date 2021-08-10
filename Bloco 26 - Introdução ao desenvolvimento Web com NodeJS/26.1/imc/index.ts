@@ -1,8 +1,11 @@
-import { weight, height, calculateIMC } from './imc';
+import { weight, height, calculateIMC, resultIMC, getSituation } from './imc';
 
 const w = weight();
 const h = height();
 
-const resultImc = calculateIMC(w, h);
+const imc = calculateIMC(w, h);
+const situation = getSituation(imc);
 
-console.log(resultImc);
+const result = resultIMC(imc, situation);
+
+console.log(result);
