@@ -4,6 +4,7 @@ const scripts = [
   { name: 'Speed', path: './speed' },
   { name: 'IMC', path: './imc' },
   { name: 'Prize', path: './prize' },
+  { name: 'Factorial', path: './factorial' },
 ];
 
 const scriptsMessage = scripts
