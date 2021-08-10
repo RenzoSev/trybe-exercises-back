@@ -1,4 +1,4 @@
-const readline = require('readline-sync');
+import readline from 'readline-sync';
 
 const calculateAverageSpeed = (distance: number, time: number) =>
   distance / time;
@@ -8,7 +8,7 @@ const questionDistance = () =>
 
 const questionTime = () => readline.questionInt('Qual o tempo em segundos?');
 
-export const runSpeed = () => {
+const runSpeed = () => {
   const distance = questionDistance();
 
   const time = questionTime();
@@ -19,3 +19,5 @@ export const runSpeed = () => {
 };
 
 runSpeed();
+
+export default runSpeed;

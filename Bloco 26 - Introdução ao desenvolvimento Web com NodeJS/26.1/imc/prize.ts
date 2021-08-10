@@ -1,4 +1,4 @@
-const readline = require('readline-sync');
+import readline from 'readline-sync';
 
 const getRandomNumber = () => Math.round(Math.random() * 10);
 
@@ -19,7 +19,7 @@ const getThePrize = (choice: number) => {
   Número escolhido: ${randomNumber}`;
 };
 
-export const runPrize = () => {
+const runPrize = () => {
   const choice = questionNumberChoice();
 
   const prizeResult = getThePrize(choice);
@@ -28,3 +28,5 @@ export const runPrize = () => {
 };
 
 runPrize();
+
+export default runPrize;

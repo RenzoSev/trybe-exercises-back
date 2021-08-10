@@ -1,4 +1,4 @@
-const readline = require('readline-sync');
+import readline from 'readline-sync';
 
 const weight = () => readline.questionFloat('Qual o seu peso?');
 
@@ -27,7 +27,7 @@ const getSituation = (imc: number) => {
 const resultIMC = (imc: number, situation: string) =>
   `Seu IMC é de ${imc}. Sua situação é: ${situation}`;
 
-export const runIMC = () => {
+const runIMC = () => {
   const w = weight();
   const h = height();
 
@@ -40,3 +40,5 @@ export const runIMC = () => {
 };
 
 runIMC();
+
+export default runIMC;
