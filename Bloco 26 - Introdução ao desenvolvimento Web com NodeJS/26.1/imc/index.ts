@@ -5,6 +5,7 @@ const scripts = [
   { name: 'IMC', path: './imc' },
   { name: 'Prize', path: './prize' },
   { name: 'Factorial', path: './factorial' },
+  { name: 'Fibonacci', path: './fibonacci' },
 ];
 
 const scriptsMessage = scripts

@@ -1,4 +1,4 @@
-import readline, { question } from 'readline-sync';
+import readline from 'readline-sync';
 
 const questionNumber = () => readline.questionInt('Digite um número');
 
