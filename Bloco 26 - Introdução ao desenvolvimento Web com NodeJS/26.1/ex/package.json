@@ -1,0 +1,24 @@
+{
+  "name": "imc",
+  "version": "1.0.0",
+  "description": "Calculate IMC",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "npx ts-node index.ts",
+    "imc": "npx ts-node imc.ts",
+    "speed": "npx ts-node speed.ts",
+    "prize": "npx ts-node prize.ts"
+  },
+  "author": "Renzo Sevilha",
+  "license": "ISC",
+  "dependencies": {
+    "@types/readline-sync": "^1.4.4",
+    "readline-sync": "^1.4.10"
+  },
+  "devDependencies": {
+    "@types/node": "^16.4.13",
+    "ts-node": "^10.2.0",
+    "typescript": "^4.3.5"
+  }
+}
