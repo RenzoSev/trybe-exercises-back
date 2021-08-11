@@ -1,0 +1,27 @@
+{
+  "name": "ex01",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "ts-node": "npx ts-node",
+    "promise": "npx ts-node promise.ts",
+    "simpsons": "npx ts-node simpsons.ts",
+    "files": "npx ts-node files.ts",
+    "choose": "npx ts-node choose.ts",
+    "change": "npx ts-node change.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/readline-sync": "^1.4.4",
+    "readline-sync": "^1.4.10",
+    "ts-node": "^10.2.0",
+    "typescript": "^4.3.5"
+  },
+  "devDependencies": {
+    "@types/node": "^16.4.14"
+  }
+}
