@@ -5,8 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "npx ts-node index.ts",
-    "ts-node": "npx ts-node"
+    "ts-node": "npx ts-node",
+    "promise": "npx ts-node promise.ts",
+    "simpsons": "npx ts-node simpsons.ts"
   },
   "keywords": [],
   "author": "",
