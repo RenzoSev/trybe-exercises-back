@@ -9,7 +9,8 @@
     "promise": "npx ts-node promise.ts",
     "simpsons": "npx ts-node simpsons.ts",
     "files": "npx ts-node files.ts",
-    "choose": "npx ts-node choose.ts"
+    "choose": "npx ts-node choose.ts",
+    "change": "npx ts-node change.ts"
   },
   "keywords": [],
   "author": "",
