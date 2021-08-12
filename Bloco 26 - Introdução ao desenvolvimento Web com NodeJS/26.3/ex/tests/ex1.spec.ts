@@ -24,3 +24,11 @@ describe('Quando o número for igual a 0', () => {
     expect(result).to.be.equals('neutro');
   });
 });
+
+describe('Quando o valor inserido não for um número', () => {
+  it('retorna "o valor deve ser um número"', () => {
+    const result = isGreatherLessOrEqualZero('o');
+
+    expect(result).to.be.equals('o valor deve ser um número');
+  });
+});
