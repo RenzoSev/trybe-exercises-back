@@ -1,4 +1,3 @@
-import fs from 'fs/promises';
 import express, {
   Request,
   Response,
@@ -7,11 +6,14 @@ import express, {
 } from 'express';
 import bodyParser from 'body-parser';
 import rescue from 'express-rescue';
+import { getSimpsons } from './api';
 
 type GreetingsBody = {
   name: string;
   age: string;
 };
+
+type Simpsons = { id: string; name: string }[];
 
 const app = express();
 
@@ -71,12 +73,30 @@ app.put('/users/:name/:age', (req, res) => {
 
 app.get(
   '/simpsons',
-  rescue(async (req, res) => {
-    const simpsons = await fs.readFile('simpsons.json', 'utf-8');
+  rescue(async (req: Request, res: Response) => {
+    const simpsons = await getSimpsons();
 
     const parsedSimpsons = JSON.parse(simpsons);
 
     res.status(200).json(parsedSimpsons);
+  })
+);
+
+app.get(
+  '/simpsons/:id',
+  rescue(async (req: Request, res: Response) => {
+    const { id } = req.params;
+
+    const simpsons = await getSimpsons();
+
+    const parsedSimpsons: Simpsons = JSON.parse(simpsons);
+
+    const simpson = parsedSimpsons.find((simp) => id === simp.id);
+
+    if (simpson) res.status(200).json(simpson);
+
+    const notFound = { message: 'simpson not found' };
+    res.status(404).json(notFound);
   })
 );
 
