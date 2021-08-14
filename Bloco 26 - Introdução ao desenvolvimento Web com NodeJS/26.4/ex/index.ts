@@ -48,4 +48,12 @@ app.post('/greetings', authYear, (req, res) => {
   res.status(200).json(greetings);
 });
 
+app.put('/users/:name/:age', (req, res) => {
+  const { name, age } = req.params;
+
+  const nameAndAge = `Seu nome é ${name} e você tem ${age} anos de idade`;
+
+  res.json(nameAndAge);
+});
+
 app.listen(3000, () => console.log('Server is running! '));
