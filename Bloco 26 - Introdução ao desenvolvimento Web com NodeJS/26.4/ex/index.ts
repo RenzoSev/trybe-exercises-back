@@ -6,14 +6,17 @@ import express, {
 } from 'express';
 import bodyParser from 'body-parser';
 import rescue from 'express-rescue';
-import { getSimpsons } from './api';
+import { getSimpsons, setSimpsons } from './api';
 
 type GreetingsBody = {
   name: string;
   age: string;
 };
 
-type Simpsons = { id: string; name: string }[];
+type SimpsonsBody = {
+  id: string;
+  name: string;
+};
 
 const app = express();
 
@@ -76,9 +79,7 @@ app.get(
   rescue(async (req: Request, res: Response) => {
     const simpsons = await getSimpsons();
 
-    const parsedSimpsons = JSON.parse(simpsons);
-
-    res.status(200).json(parsedSimpsons);
+    res.status(200).json(simpsons);
   })
 );
 
@@ -89,14 +90,31 @@ app.get(
 
     const simpsons = await getSimpsons();
 
-    const parsedSimpsons: Simpsons = JSON.parse(simpsons);
-
-    const simpson = parsedSimpsons.find((simp) => id === simp.id);
+    const simpson = simpsons.find((simp) => id === simp.id);
 
     if (simpson) res.status(200).json(simpson);
 
     const notFound = { message: 'simpson not found' };
     res.status(404).json(notFound);
+  })
+);
+
+app.post(
+  '/simpsons',
+  rescue(async (req: Request, res: Response) => {
+    const simpsons = await getSimpsons();
+
+    const simpson = req.body as SimpsonsBody;
+
+    if (simpsons.some(({ id }) => id === simpson.id)) {
+      const alreadExists = { message: 'id already exists' };
+
+      res.status(409).json(alreadExists);
+    }
+
+    await setSimpsons(simpson, simpsons);
+
+    res.status(204).end();
   })
 );
 
