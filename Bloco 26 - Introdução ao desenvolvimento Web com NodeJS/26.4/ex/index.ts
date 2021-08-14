@@ -1,44 +1,34 @@
-import express, {
-  Request,
-  Response,
-  NextFunction,
-  ErrorRequestHandler,
-} from 'express';
-import bodyParser from 'body-parser';
+import express, { Request, Response } from 'express';
 import rescue from 'express-rescue';
-import { getSimpsons, setSimpsons } from './api';
 
-type GreetingsBody = {
-  name: string;
-  age: string;
-};
+import bodyParser from 'body-parser';
+
+import { getSimpsons, setSimpsons } from './data/api';
+
+import authMiddleware from './middlewares/authMiddleware';
+import authYear from './middlewares/authYear';
+import errorMiddleware from './middlewares/errorMiddleware';
+
+import { GreetingsBody } from './types/Body';
+import generateToken from './utils/generateToken';
 
 type SimpsonsBody = {
   id: string;
   name: string;
 };
 
+type UserBody = {
+  email: string | undefined;
+  password: string | undefined;
+  firstName: string | undefined;
+  phone: string | undefined;
+};
+
 const app = express();
-
-const authYear = (req: Request, res: Response, next: NextFunction) => {
-  const { age } = req.body as GreetingsBody;
-
-  if (Number(age) < 17) {
-    const unauthorized = { message: 'Unauthorized' };
-
-    res.status(401).json(unauthorized);
-  }
-
-  next();
-};
-
-const errorMiddleware: ErrorRequestHandler = (err, req, res, next) => {
-  res.status(500).json({ error: `Erro: ${err.message}` });
-};
 
 app.use(bodyParser());
 
-app.use(errorMiddleware);
+app.use(authMiddleware);
 
 app.get('/', (req, res) => {
   res.status(200).send('Home Page');
@@ -117,5 +107,21 @@ app.post(
     res.status(204).end();
   })
 );
+
+app.post('/signup', (req, res) => {
+  const { email, password, firstName, phone } = req.body as UserBody;
+
+  if ([email, password, firstName, phone].includes(undefined)) {
+    const unauthorizedUser = { message: 'missing fields' };
+
+    return res.send(401).json(unauthorizedUser);
+  }
+
+  const token = generateToken();
+
+  return res.status(200).json({ token });
+});
+
+app.use(errorMiddleware);
 
 app.listen(3000, () => console.log('Server is running! '));
