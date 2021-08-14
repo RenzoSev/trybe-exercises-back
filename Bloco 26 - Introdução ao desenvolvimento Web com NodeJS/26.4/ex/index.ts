@@ -124,4 +124,4 @@ app.post('/signup', (req, res) => {
 
 app.use(errorMiddleware);
 
-app.listen(3000, () => console.log('Server is running! '));
+app.listen(3000, () => console.log('Server is running!'));

@@ -8,6 +8,8 @@ const authMiddleware = (req: Request, res: Response, next: NextFunction) => {
 
     return res.status(401).json(invalidToken);
   }
+
+  next();
 };
 
 export default authMiddleware;
