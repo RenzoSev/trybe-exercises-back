@@ -1,5 +1,12 @@
-import express, { Request, Response, NextFunction } from 'express';
+import fs from 'fs/promises';
+import express, {
+  Request,
+  Response,
+  NextFunction,
+  ErrorRequestHandler,
+} from 'express';
 import bodyParser from 'body-parser';
+import rescue from 'express-rescue';
 
 type GreetingsBody = {
   name: string;
@@ -20,7 +27,13 @@ const authYear = (req: Request, res: Response, next: NextFunction) => {
   next();
 };
 
+const errorMiddleware: ErrorRequestHandler = (err, req, res, next) => {
+  res.status(500).json({ error: `Erro: ${err.message}` });
+};
+
 app.use(bodyParser());
+
+app.use(errorMiddleware);
 
 app.get('/', (req, res) => {
   res.status(200).send('Home Page');
@@ -55,5 +68,16 @@ app.put('/users/:name/:age', (req, res) => {
 
   res.json(nameAndAge);
 });
+
+app.get(
+  '/simpsons',
+  rescue(async (req, res) => {
+    const simpsons = await fs.readFile('simpsons.json', 'utf-8');
+
+    const parsedSimpsons = JSON.parse(simpsons);
+
+    res.status(200).json(parsedSimpsons);
+  })
+);
 
 app.listen(3000, () => console.log('Server is running! '));
