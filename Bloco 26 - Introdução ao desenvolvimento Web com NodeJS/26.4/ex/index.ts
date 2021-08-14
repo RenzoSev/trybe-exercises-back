@@ -1,7 +1,24 @@
-import express from 'express';
+import express, { Request, Response, NextFunction } from 'express';
 import bodyParser from 'body-parser';
 
+type GreetingsBody = {
+  name: string;
+  age: string;
+};
+
 const app = express();
+
+const authYear = (req: Request, res: Response, next: NextFunction) => {
+  const { age } = req.body as GreetingsBody;
+
+  if (Number(age) < 17) {
+    const unauthorized = { message: 'Unauthorized' };
+
+    res.status(401).json(unauthorized);
+  }
+
+  next();
+};
 
 app.use(bodyParser());
 
@@ -21,6 +38,14 @@ app.post('/hello', (req, res) => {
   const message = { message: `Hello, ${name}` };
 
   res.json(message);
+});
+
+app.post('/greetings', authYear, (req, res) => {
+  const { name } = req.body as GreetingsBody;
+
+  const greetings = { message: `Hello, ${name}` };
+
+  res.status(200).json(greetings);
 });
 
 app.listen(3000, () => console.log('Server is running! '));
