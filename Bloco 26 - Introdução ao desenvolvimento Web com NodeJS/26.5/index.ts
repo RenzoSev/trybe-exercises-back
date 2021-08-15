@@ -8,6 +8,7 @@ import {
   deleteRecipeFromDb,
   alterRecipeFromDb,
   alterUserStatusFromDb,
+  removeOrAlterIngredientsFromRecipeDb,
 } from './utils/db';
 import getOperation from './utils/operators';
 import generateToken from './utils/generateToken';
@@ -145,7 +146,7 @@ app.get('/comments', (req, res) => {
   return res.status(200).json({ comments });
 });
 
-app.post('/user/:id', (req, res) => {
+app.patch('/user/:id', (req, res) => {
   const { status } = req.body as { status: boolean };
   const { id } = req.params;
 
@@ -160,6 +161,21 @@ app.post('/user/:id', (req, res) => {
   }
 
   return res.status(200).json(users);
+});
+
+app.post('recipe/:id/ingredients', (req, res) => {
+  const { id } = req.params;
+
+  const { remove, insert } = req.body as {
+    remove: string[] | undefined;
+    insert: string[] | undefined;
+  };
+
+  const rcps = removeOrAlterIngredientsFromRecipeDb(Number(id), remove, insert);
+
+  if (rcps === 'error') return res.status(404).send('Recipe not found');
+
+  return res.status(200).json(rcps);
 });
 
 app.listen(3000, () => console.log('Server is running!'));
