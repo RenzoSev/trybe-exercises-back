@@ -1,10 +1,12 @@
 import express from 'express';
-import generateToken from './utils/generateToken';
-import { authEmail, authPassword, authToken } from './utils/checkers';
+
 import { fetchBtc } from './services/api';
 import { posts, users } from './services/data';
-import getOperation from './utils/operators';
+
+import { authEmail, authPassword, authToken } from './utils/checkers';
 import { deleteRecipeFromDb } from './utils/dbDelete';
+import getOperation from './utils/operators';
+import generateToken from './utils/generateToken';
 
 const app = express();
 
