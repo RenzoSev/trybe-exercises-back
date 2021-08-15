@@ -123,4 +123,22 @@ app.put('/recipe/:id', (req, res) => {
   return res.status(200).json(updatedRecipe);
 });
 
+app.get('/comments', (req, res) => {
+  const { filter } = req.query;
+
+  const comments = users.reduce((acc, cur) => {
+    if (filter) {
+      const newAcc = cur.comments.includes(filter as string)
+        ? [...acc, ...cur.comments]
+        : acc;
+
+      return newAcc;
+    }
+
+    return [...acc, ...cur.comments];
+  }, [] as string[]);
+
+  return res.status(200).json({ comments });
+});
+
 app.listen(3000, () => console.log('Server is running!'));
