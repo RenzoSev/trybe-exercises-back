@@ -4,7 +4,7 @@ import { fetchBtc } from './services/api';
 import { posts, users } from './services/data';
 
 import { authEmail, authPassword, authToken } from './utils/checkers';
-import { deleteRecipeFromDb } from './utils/dbDelete';
+import { deleteRecipeFromDb, alterRecipeFromDb } from './utils/db';
 import getOperation from './utils/operators';
 import generateToken from './utils/generateToken';
 
@@ -87,7 +87,7 @@ app.get('/:operacao/:numero1/:numero2', (req, res) => {
   return res.status(200).send(result.toString());
 });
 
-app.get('/recipe/:id', (req, res) => {
+app.delete('/recipe/:id', (req, res) => {
   const { id } = req.params;
 
   const deletedRecipe = deleteRecipeFromDb(Number(id));
@@ -97,6 +97,30 @@ app.get('/recipe/:id', (req, res) => {
   }
 
   return res.status(200).json(deletedRecipe);
+});
+
+app.put('/recipe/:id', (req, res) => {
+  const { id } = req.params;
+
+  const { recipe } = req.body as {
+    recipe: { id: string; name: string; ingredients: string[] };
+  };
+
+  console.log(recipe);
+
+  const fixedRecipe = {
+    id: Number(recipe.id),
+    name: recipe.name,
+    ingredients: recipe.ingredients,
+  };
+
+  const updatedRecipe = alterRecipeFromDb(Number(id), fixedRecipe);
+
+  if (updatedRecipe === 'error') {
+    return res.status(404).send('Recipe not found');
+  }
+
+  return res.status(200).json(updatedRecipe);
 });
 
 app.listen(3000, () => console.log('Server is running!'));
