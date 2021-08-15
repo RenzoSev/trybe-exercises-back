@@ -4,6 +4,7 @@ import { authEmail, authPassword, authToken } from './utils/checkers';
 import { fetchBtc } from './services/api';
 import { posts, users } from './services/data';
 import getOperation from './utils/operators';
+import { deleteRecipeFromDb } from './utils/dbDelete';
 
 const app = express();
 
@@ -82,6 +83,18 @@ app.get('/:operacao/:numero1/:numero2', (req, res) => {
   if (result === 'error') return res.status(400).send('Invalid operator.');
 
   return res.status(200).send(result.toString());
+});
+
+app.get('/recipe/:id', (req, res) => {
+  const { id } = req.params;
+
+  const deletedRecipe = deleteRecipeFromDb(Number(id));
+
+  if (deletedRecipe === 'error') {
+    return res.status(404).send('Recipe not found');
+  }
+
+  return res.status(200).json(deletedRecipe);
 });
 
 app.listen(3000, () => console.log('Server is running!'));
