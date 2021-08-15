@@ -1,4 +1,4 @@
-import { recipes } from '../services/data';
+import { recipes, userStatus } from '../services/data';
 
 export const deleteRecipeFromDb = (id: number) => {
   const indexRecipe = recipes.findIndex((recipe) => recipe.id === id);
@@ -21,4 +21,18 @@ export const alterRecipeFromDb = (
   recipes.splice(indexRecipe, 1, recipe);
 
   return recipes;
+};
+
+export const alterUserStatusFromDb = (id: number, status: boolean) => {
+  const oldUser = userStatus.find((user) => user.id === id);
+
+  if (!oldUser) return 'error';
+
+  const newUser = { id: oldUser.id, user: oldUser.user, isActive: status };
+
+  const indexUser = userStatus.findIndex((user) => user.id === id);
+
+  userStatus.splice(indexUser, 1, newUser);
+
+  return userStatus;
 };

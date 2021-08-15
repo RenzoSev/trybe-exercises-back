@@ -24,6 +24,24 @@ export const users = [
   },
 ];
 
+export const userStatus = [
+  {
+    id: 2,
+    user: 'marcos',
+    isActive: true,
+  },
+  {
+    id: 3,
+    user: 'paulo',
+    isActive: true,
+  },
+  {
+    id: 4,
+    user: 'roger',
+    isActive: false,
+  },
+];
+
 export const recipes = [
   {
     id: 12345,

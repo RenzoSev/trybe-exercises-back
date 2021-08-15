@@ -1,10 +1,14 @@
 import express from 'express';
 
 import { fetchBtc } from './services/api';
-import { posts, users } from './services/data';
+import { posts, users, userStatus } from './services/data';
 
 import { authEmail, authPassword, authToken } from './utils/checkers';
-import { deleteRecipeFromDb, alterRecipeFromDb } from './utils/db';
+import {
+  deleteRecipeFromDb,
+  alterRecipeFromDb,
+  alterUserStatusFromDb,
+} from './utils/db';
 import getOperation from './utils/operators';
 import generateToken from './utils/generateToken';
 
@@ -139,6 +143,23 @@ app.get('/comments', (req, res) => {
   }, [] as string[]);
 
   return res.status(200).json({ comments });
+});
+
+app.post('/user/:id', (req, res) => {
+  const { status } = req.body as { status: boolean };
+  const { id } = req.params;
+
+  if (typeof status !== 'boolean') {
+    return res.status(401).send("status isn't a boolean");
+  }
+
+  const users = alterUserStatusFromDb(Number(id), status);
+
+  if (users === 'error') {
+    return res.status(404).send("user isn't found");
+  }
+
+  return res.status(200).json(users);
 });
 
 app.listen(3000, () => console.log('Server is running!'));
