@@ -10,12 +10,12 @@ app.post('/login', (req, res) => {
   const { email, password } = req.body as { email: string; password: string };
 
   if (!authEmail(email) || !authPassword(password)) {
-    res.status(401).send('Email or password is incorrect');
+    return res.status(401).send('Email or password is incorrect');
   }
 
   const token = generateToken();
 
-  res.status(200).send({ token });
+  return res.status(200).send({ token });
 });
 
 app.listen(3000, () => console.log('Server is running!'));
