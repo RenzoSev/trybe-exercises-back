@@ -12,3 +12,8 @@ export const authPassword = (password: string) => {
 
   return true;
 };
+
+export const authToken = (token: string) => {
+  const re = /^(\d|\w){12}$/gm;
+  return re.test(token);
+};
