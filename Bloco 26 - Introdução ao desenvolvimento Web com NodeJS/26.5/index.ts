@@ -3,6 +3,7 @@ import generateToken from './utils/generateToken';
 import { authEmail, authPassword, authToken } from './utils/checkers';
 import { fetchBtc } from './services/api';
 import { posts, users } from './services/data';
+import getOperation from './utils/operators';
 
 const app = express();
 
@@ -71,6 +72,16 @@ app.get('/user/:name', (req, res) => {
   const { comments } = user;
 
   return res.status(200).json({ comments });
+});
+
+app.get('/:operacao/:numero1/:numero2', (req, res) => {
+  const { operacao, numero1, numero2 } = req.params;
+
+  const result = getOperation(operacao, Number(numero1), Number(numero2));
+
+  if (result === 'error') return res.status(400).send('Invalid operator.');
+
+  return res.status(200).send(result.toString());
 });
 
 app.listen(3000, () => console.log('Server is running!'));
