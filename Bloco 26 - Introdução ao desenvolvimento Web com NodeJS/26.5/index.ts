@@ -2,7 +2,7 @@ import express from 'express';
 import generateToken from './utils/generateToken';
 import { authEmail, authPassword, authToken } from './utils/checkers';
 import { fetchBtc } from './services/api';
-import { posts } from './services/data';
+import { posts, users } from './services/data';
 
 const app = express();
 
@@ -43,12 +43,34 @@ app.get('/posts/:id', (req, res) => {
   const postById = posts.find((post) => post.id === Number(id));
 
   if (!postById) {
-    const notFound = 'id not found';
+    const notFound = 'id not found.';
 
     return res.status(404).send(notFound);
   }
 
   return res.status(200).json(postById);
+});
+
+app.get('/user/:name', (req, res) => {
+  const { name } = req.params;
+
+  const user = users.find(
+    ({ user }) => user.toLowerCase() === name.toLowerCase()
+  ) as {
+    id: number;
+    user: string;
+    comments: string[];
+  };
+
+  if (!user) {
+    const notFound = 'user not found.';
+
+    return res.status(404).send(notFound);
+  }
+
+  const { comments } = user;
+
+  return res.status(200).json({ comments });
 });
 
 app.listen(3000, () => console.log('Server is running!'));
