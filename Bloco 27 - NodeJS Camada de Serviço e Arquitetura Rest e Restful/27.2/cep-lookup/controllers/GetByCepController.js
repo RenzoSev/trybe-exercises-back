@@ -1,22 +1,16 @@
-import CepModel from '../models/CepModel.js';
+import GetByCepService from '../services/GetByCepService.js';
 
 class GetByCepController {
   async handle(req, res) {
     const { id } = req.body;
 
-    const cepModel = new CepModel();
+    const getByCepService = new GetByCepService();
 
-    const cep = await cepModel.getByCep(id);
+    const cep = await getByCepService.handle(id);
 
-    if (!cep) {
-      const message = {
-        error: { code: 'notFound', message: 'CEP não encontrado' },
-      };
+    if (cep.error) return res.status(cep.status).json(cep.message);
 
-      return res.status(400).json(message);
-    }
-
-    return res.status(200).json(cep);
+    return res.status(200).json(cep.payload);
   }
 }
 

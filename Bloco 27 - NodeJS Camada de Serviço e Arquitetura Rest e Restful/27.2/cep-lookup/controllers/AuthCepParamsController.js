@@ -1,10 +1,12 @@
+import { validCep } from '../utils/validaters.js';
+
 class AuthCep {
   handle(req, res, next) {
     const { cep } = req.params;
 
-    const regex = /\d{5}-?\d{3/;
+    const isValidCep = validCep(cep);
 
-    if (regex.test(cep)) {
+    if (!isValidCep) {
       const message = {
         error: {
           code: 'invalidData',

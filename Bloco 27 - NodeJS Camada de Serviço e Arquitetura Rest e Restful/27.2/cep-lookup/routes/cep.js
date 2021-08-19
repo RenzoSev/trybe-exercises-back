@@ -1,10 +1,22 @@
 import express from 'express';
-import AuthCepController from '../controllers/AuthCepController.js';
+
+import AuthCepBodyController from '../controllers/AuthCepBodyController.js';
+import AuthCepParamsController from '../controllers/AuthCepParamsController.js';
+import GetByCepController from '../controllers/GetByCepController.js';
+
+import errorMiddleware from '../middlewares/error.js';
 
 const router = express.Router();
 
-const authCep = new AuthCepController();
+const authCepBody = new AuthCepBodyController();
 
-router.get('/:cep', authCep.handle);
+const authCepParams = new AuthCepParamsController();
+const getByCepController = new GetByCepController();
+
+router.post('/', authCepBody.handle);
+
+router.get('/:cep', authCepParams.handle, getByCepController.handle);
+
+router.use(errorMiddleware);
 
 export default router;
