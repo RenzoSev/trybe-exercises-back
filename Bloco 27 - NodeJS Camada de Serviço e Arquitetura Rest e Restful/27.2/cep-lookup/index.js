@@ -1,9 +1,15 @@
 import express from 'express';
 
+import cepRouter from './routes/cep.js';
+
+import pingPongRoutes from './routes/pingPong.js'
+
 const app = express();
 
 const PORT = 3000;
 
-app.get('/ping', (_req, res) => res.status(200).send('pong!'));
+app.use('/ping', pingPongRoutes);
+
+app.use('/cep', cepRouter);
 
 app.listen(PORT, () => console.log(`Server is running at port ${PORT}`));
