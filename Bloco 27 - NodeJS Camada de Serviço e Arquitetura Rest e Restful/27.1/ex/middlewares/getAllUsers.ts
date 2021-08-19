@@ -1,6 +1,8 @@
+import { Request, Response } from 'express';
+
 import User from '../models/User';
 
-export const getAllUsers = async (req, res) => {
+export const getAllUsers = async (req: Request, res: Response) => {
   const user = new User();
 
   const users = await user.getAll();

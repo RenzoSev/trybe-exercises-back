@@ -1,8 +1,11 @@
 import express from 'express';
 
-import { authUser, createUser } from './middlewares/createUser';
+import { authUser } from './middlewares/authUser';
+import { changeUser } from './middlewares/changeUser';
+import { createUser } from './middlewares/createUser';
 import { getAllUsers } from './middlewares/getAllUsers';
 import { getUserById } from './middlewares/getUserById';
+
 import error from './middlewares/error';
 
 const app = express();
@@ -16,6 +19,8 @@ app.post('/user', authUser, createUser);
 app.get('/user', getAllUsers);
 
 app.get('/user/:id', getUserById);
+
+app.put('/user/:id', authUser, changeUser);
 
 app.use(error);
 

@@ -90,6 +90,28 @@ class User {
 
     return userById;
   }
+
+  async changeById(id: string) {
+    const db = await connection();
+
+    if (!ObjectId.isValid(id)) return false;
+
+    const userId = new ObjectId(id);
+
+    const formatedUser = this.formated(this.user);
+
+    const { value } = await db
+      .collection('users')
+      .findOneAndUpdate(
+        { _id: userId },
+        { $set: formatedUser },
+        { returnDocument: 'after' }
+      );
+
+    if (!value) return false;
+
+    return formatedUser;
+  }
 }
 
 export default User;

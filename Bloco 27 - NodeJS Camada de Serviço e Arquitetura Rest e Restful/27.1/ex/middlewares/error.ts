@@ -1,6 +1,6 @@
 import { ErrorRequestHandler } from 'express';
 
-const error: ErrorRequestHandler = (err, req, res, _next) => {
+const error: ErrorRequestHandler = (err, _req, res, _next) => {
   if (err.status) {
     return res.status(err.status).json({ message: err.message });
   }
