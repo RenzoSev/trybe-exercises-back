@@ -2,11 +2,13 @@ import express from 'express';
 
 import cepRouter from './routes/cep.js';
 
-import pingPongRoutes from './routes/pingPong.js'
+import pingPongRoutes from './routes/pingPong.js';
 
 const app = express();
 
 const PORT = 3000;
+
+app.use(express.json());
 
 app.use('/ping', pingPongRoutes);
 

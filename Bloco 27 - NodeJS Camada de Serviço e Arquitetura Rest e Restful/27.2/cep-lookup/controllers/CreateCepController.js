@@ -9,7 +9,7 @@ class CreateCepController {
 
     const newCep = await createCepService.handle(cepBody);
 
-    if (newCep.error) return next(error);
+    if (newCep.error) return next(newCep.error);
 
     return res.status(201).json(newCep);
   });

@@ -2,15 +2,17 @@ import GetByCepService from '../services/GetByCepService.js';
 
 class GetByCepController {
   async handle(req, res) {
-    const { id } = req.body;
+    const { cep } = req.params;
 
     const getByCepService = new GetByCepService();
 
-    const cep = await getByCepService.handle(id);
+    const cepById = await getByCepService.handle(cep);
 
-    if (cep.error) return res.status(cep.status).json(cep.message);
+    console.log(cepById.message);
 
-    return res.status(200).json(cep.payload);
+    if (cepById.error) return res.status(cepById.status).json(cepById.message);
+
+    return res.status(200).json(cepById.payload);
   }
 }
 

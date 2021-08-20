@@ -18,9 +18,11 @@ class AuthCepBodyController {
   // }
 
   handle = rescue(async (req, _res, next) => {
-    const cep = req.body;
+    const cepBody = req.body;
 
-    const isValidCep = validCep(cep);
+    const isValidCep = validCep(cepBody.cep);
+
+    console.log(isValidCep);
 
     if (!isValidCep) {
       if (!isValidCep) {
@@ -35,7 +37,7 @@ class AuthCepBodyController {
       }
     }
 
-    const { error } = CepSchema.validate(cep);
+    const { error } = CepSchema.validate(cepBody);
 
     if (error) next(error);
 

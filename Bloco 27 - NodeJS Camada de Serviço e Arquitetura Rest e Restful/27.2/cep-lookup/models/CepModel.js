@@ -8,7 +8,7 @@ class CepModel {
 
     const [cep] = await connection.execute(query, literals);
 
-    if (!cep) return null;
+    if (!cep.length) return null;
 
     return cep;
   }
@@ -17,11 +17,13 @@ class CepModel {
     const query =
       'INSERT INTO cep_lookup.ceps (cep, logradouro, bairro, localidade, uf) VALUES (?, ?, ?, ?, ?)';
 
-    const literals = [...cepBody];
+    const { cep, logradouro, bairro, localidade, uf } = cepBody;
 
-    const [cep] = connection.execute(query, literals);
+    const literals = [cep, logradouro, bairro, localidade, uf];
 
-    return cep;
+    const [craetedCep] = await connection.execute(query, literals);
+
+    return craetedCep;
   }
 }
 

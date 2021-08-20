@@ -1,10 +1,10 @@
-import mysql from 'mysql2';
+import mysql from 'mysql2/promise';
 
 const connection = mysql.createPool({
   user: 'renzosev',
   password: 'Sevilha123',
   host: 'localhost',
-  database: 'users_crud',
+  database: 'cep_lookup',
 });
 
 export default connection;
