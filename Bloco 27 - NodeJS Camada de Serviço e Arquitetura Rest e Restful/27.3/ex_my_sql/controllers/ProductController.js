@@ -1,40 +1,42 @@
 const express = require('express');
-const ProductModel = require('../models/productModel');
+const ProductModel = require('../models/ProductModel');
 
 const router = express.Router();
 
-router.get('/list-products', async (req, res, next) => {
-  const products = await ProductModel.getAll();
+const productModel = new ProductModel();
 
-  res.send(products);
+router.get('/', async (req, res, _next) => {
+  const products = await productModel.getAll();
+
+  res.status(200).json(products);
 });
 
-router.get('/get-by-id/:id', async (req, res, next) => {
-  const product = await ProductModel.getById(req.params.id);
+router.get('/:id', async (req, res, _next) => {
+  const product = await productModel.getById(req.params.id);
 
-  res.send(product);
+  res.status(200).json(product);
 });
 
-router.post('/add-user', async (req, res) => {
+router.post('/', async (req, res) => {
   const { name, brand } = req.body;
 
-  const newProduct = await ProductModel.add(name, brand);
+  const newProduct = await productModel.add(name, brand);
 
-  res.send(newProduct);
+  res.status(201).json(newProduct);
 });
 
-router.post('/delete-user/:id', async (req, res) => {
-  const products = await ProductModel.exclude(req.params.id);
+router.delete('/:id', async (req, res) => {
+  const products = await productModel.exclude(req.params.id);
 
-  res.send(products);
+  res.status(204).json(products);
 });
 
-router.post('/update-user/:id', async (req, res) => {
+router.put('/:id', async (req, res) => {
   const { name, brand } = req.body;
 
-  const products = await ProductModel.update(req.params.id, name, brand);
+  const products = await productModel.update(req.params.id, name, brand);
 
-  res.send(products);
+  res.status(204).json(products);
 });
 
 module.exports = router;
