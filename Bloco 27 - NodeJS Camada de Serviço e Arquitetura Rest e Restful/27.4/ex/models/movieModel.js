@@ -1,3 +1,4 @@
+const { ObjectId } = require('mongodb');
 const connection = require('./connection');
 
 const getAll = async () => {
@@ -29,7 +30,18 @@ const create = async ({ title, directedBy, releaseYear }) => {
   };
 };
 
+const getById = async (id) => {
+  const moviesCollection = await connection().then((db) =>
+    db.collection('movies')
+  );
+
+  const movieById = await moviesCollection.findOne(new ObjectId(id));
+
+  return movieById;
+};
+
 module.exports = {
   create,
   getAll,
+  getById,
 };

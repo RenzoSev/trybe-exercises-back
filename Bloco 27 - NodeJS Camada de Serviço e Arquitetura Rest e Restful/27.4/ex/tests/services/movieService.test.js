@@ -121,3 +121,57 @@ describe('Insere um novo filme no BD', () => {
     });
   });
 });
+
+describe('Busca um filme pelo ID', () => {
+  const id = '767856658657';
+
+  const payloadMovie = {
+    _id: id,
+    title: 'Example Movie',
+    directedBy: 'Jane Dow',
+    releaseYear: 1999,
+  };
+
+  describe('Quando retorna um filme com sucesso', () => {
+    before(() => {
+      sinon.stub(MoviesModel, 'getById').resolves(payloadMovie);
+    });
+
+    after(() => {
+      MoviesModel.getById.restore();
+    });
+
+    it('retorna um objeto', async () => {
+      const response = await MoviesService.getById(id);
+
+      expect(response).to.be.a('object');
+    });
+
+    it('o objeto possui as propriedades: "id", "title", "releaseYear", e "directedBy"', async () => {
+      const response = await MoviesService.getById(id);
+
+      expect(response).to.have.all.keys(
+        'id',
+        'title',
+        'releaseYear',
+        'directedBy'
+      );
+    });
+  });
+
+  describe('Quando não retorna um filme com sucesso', () => {
+    const payloadMovie = '123458976298765342132132';
+
+    it('retorna um boolean', async () => {
+      const response = await MoviesService.getById(payloadMovie);
+
+      expect(response).to.be.a('boolean');
+    });
+
+    it('o boolean contém "false"', async () => {
+      const response = await MoviesService.getById(payloadMovie);
+
+      expect(response).to.be.equal(false);
+    });
+  });
+});
