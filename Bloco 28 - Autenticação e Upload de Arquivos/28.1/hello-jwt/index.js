@@ -7,13 +7,11 @@ const bodyParser = require('body-parser');
 const { PORT } = process.env;
 
 const ping = require('./controllers/ping');
-const RegisterUserController = require('./controllers/RegisterUserController');
+const user = require('./routes/user');
 
-const middlewares = require('./middlewares');
+const errorMiddleware = require('./middlewares/error');
 
 const app = express();
-
-const registerUserController = new RegisterUserController();
 
 const CORS_OPTIONS = {
   origin: `http://localhost:${PORT}`,
@@ -28,11 +26,9 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/ping', ping);
 
-app.post('/register', registerUserController.handle);
+app.use('/', user);
 
-app.post('/login');
-
-app.use(middlewares.error);
+app.use(errorMiddleware);
 
 app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}`);
