@@ -1,5 +1,6 @@
 const express = require('express');
 const multer = require('multer');
+const fs = require('fs/promises');
 
 const app = express();
 
@@ -12,9 +13,23 @@ const storage = multer.diskStorage({
   },
 });
 
-const fileFilter = (req, file, cb) => {
-  if (file.mimetype !== 'image/png') {
+const fileIsInvalid = (file) => file.mimetype !== 'image/png';
+
+const fileAlreadyExists = async (file) => {
+  const files = await fs.readdir(`${__dirname}/uploads`);
+
+  return files.some((f) => f.split('-')[1] === file.originalname);
+};
+
+const fileFilter = async (req, file, cb) => {
+  if (fileIsInvalid(file)) {
     req.fileValidationError = true;
+
+    return cb(null, false);
+  }
+
+  if (await fileAlreadyExists(file)) {
+    req.fileDuplicated = true;
 
     return cb(null, false);
   }
@@ -37,6 +52,12 @@ app.post('/upload', upload.single('file'), (req, res) => {
     };
 
     return res.status(403).json(err);
+  }
+
+  if (req.fileDuplicated) {
+    const err = { error: { message: 'File already exists' } };
+
+    return res.status(409).json(err);
   }
 
   return res.status(200).send(req.file);
