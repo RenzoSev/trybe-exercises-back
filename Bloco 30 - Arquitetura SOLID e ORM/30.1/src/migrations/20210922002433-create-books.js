@@ -1,7 +1,5 @@
 'use strict';
 
-const { DataTypes } = require('sequelize/types');
-
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     const BooksTable = queryInterface.createTable('Books', {
@@ -20,11 +18,11 @@ module.exports = {
       },
       pageQuantity: {
         allowNull: false,
-        type: DataTypes.INTEGER,
+        type: Sequelize.INTEGER,
       },
       createdAt: {
         allowNull: false,
-        type: DataTypes.DATE,
+        type: Sequelize.DATE,
       },
     });
 
