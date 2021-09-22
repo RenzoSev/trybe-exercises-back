@@ -1,11 +1,11 @@
-// const Book = (sequelize, DataTypes) => {
-//   const Book = sequelize.define('Book', {
-//     id: DataTypes.STRING,
-//     title: DataTypes.STRING,
-//     author: DataTypes.STRING,
-//     pageQuantity: DataTypes.STRING,
-//     createdAt: DataTypes.STRING,
-//   });
-// };
+const Book = (sequelize, DataTypes) => {
+  const Book = sequelize.define('Book', {
+    title: DataTypes.STRING,
+    author: DataTypes.STRING,
+    pageQuantity: DataTypes.INTEGER,
+  });
 
-// module.exports = Book;
+  return Book;
+};
+
+module.exports = Book;
