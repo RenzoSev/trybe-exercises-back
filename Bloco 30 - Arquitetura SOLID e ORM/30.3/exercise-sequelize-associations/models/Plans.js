@@ -1,4 +1,4 @@
-const Plans = (sequelize, DataTypes) => {
+module.exports = (sequelize, DataTypes) => {
   const Plans = sequelize.define(
     'Plans',
     {
@@ -16,8 +16,8 @@ const Plans = (sequelize, DataTypes) => {
   );
 
   Plans.associate = (models) => {
-    Plans.hasMany(models.Patients, { as: 'patients', foreignKey: 'plan_id' });
+    Plans.hasMany(models.Patients, { foreignKey: 'plan_id', as: 'patients' });
   };
-};
 
-module.exports = Plans;
+  return Plans;
+};

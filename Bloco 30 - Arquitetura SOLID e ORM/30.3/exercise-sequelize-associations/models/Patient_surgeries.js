@@ -1,5 +1,5 @@
 module.exports = (sequelize, DataTypes) => {
-  const PatientSurgeries = sequelize.define(
+  const Patient_surgeries = sequelize.define(
     'Patient_surgeries',
     {},
     { timestamps: false }
@@ -20,5 +20,5 @@ module.exports = (sequelize, DataTypes) => {
     });
   };
 
-  return PatientSurgeries;
+  return Patient_surgeries;
 };
