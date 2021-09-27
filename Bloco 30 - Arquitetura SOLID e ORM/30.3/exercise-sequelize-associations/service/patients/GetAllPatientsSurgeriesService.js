@@ -7,6 +7,7 @@ class GetAllPatientsSurgeriesService {
         model: Surgeries,
         as: 'surgeries',
         through: { attributes: [] },
+        attributes: { exclude: ['doctor'] },
       },
     });
 
