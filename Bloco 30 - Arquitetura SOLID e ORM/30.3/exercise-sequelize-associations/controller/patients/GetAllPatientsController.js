@@ -1,4 +1,4 @@
-const GetAllPatientsService = require('../../service/GetAllPatientsService');
+const { GetAllPatientsService } = require('../../service/patients');
 
 class GetAllPatientsController {
   async handle(_req, res) {

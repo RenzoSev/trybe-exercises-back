@@ -1,4 +1,4 @@
-const { Patients, Surgeries } = require('../models');
+const { Patients, Surgeries } = require('../../models');
 
 class GetAllPatientsSurgeriesService {
   async handle() {
